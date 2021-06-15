@@ -14,4 +14,6 @@ class Product extends Model
         'amount',
         'url_foto'
     ];
+
+    protected  $hidden = ['created_at', 'updated_at', 'deleted_at', 'status_id'];
 }
