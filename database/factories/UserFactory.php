@@ -19,11 +19,10 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'id' => 1,
-        'name' => 'Gabriel Rodriguez',
-        'username' => 'loveniac',
+        'name' => $faker->name,
+        'username' => $faker->unique()->name,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'mail' => 'grodriguezubiera@gmail.com',
-        'number' => '8092109367'
+        'mail' => $faker->unique()->safeEmail,
+        'number' => $faker->numerify('##########')
     ];
 });
