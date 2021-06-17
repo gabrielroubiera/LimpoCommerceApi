@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController as Controller;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Product[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return string
      */
     public function index()
     {
-        return Product::all();
+        $products = Product::where('status_id', '=' , 1)
+            ->where('amount', '!=', '0')
+            ->whereNull('deleted_at')
+            ->get();
+
+        return response()->json($products);
     }
 
     /**
@@ -63,5 +69,15 @@ class ProductController extends Controller
     {
         $product->delete();
         return response()->json();
+    }
+
+    public function productsNoAvailable()
+    {
+        $products = Product::where('status_id', '=' , 1)
+            ->where('amount', '=', '0')
+            ->whereNull('deleted_at')
+            ->get();
+
+        return response()->json($products);
     }
 }

@@ -77,4 +77,11 @@ class ProductTest extends TestCase
         $response->assertHeader('content-type', 'application/json');
         $this->assertDeleted($product);
     }
+
+    public function test_productsNoAvailable(){
+        $response = $this->getJson('/api/products/no/availables');
+
+        $response->assertSuccessful();
+        $response->assertHeader('content-type', 'application/json');
+    }
 }
