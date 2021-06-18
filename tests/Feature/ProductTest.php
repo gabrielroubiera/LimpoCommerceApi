@@ -84,4 +84,14 @@ class ProductTest extends TestCase
         $response->assertSuccessful();
         $response->assertHeader('content-type', 'application/json');
     }
+
+    public function test_search(){
+        $data = [
+            "product_name" => "Coca"
+        ];
+
+        $response = $this->postJson('/api/products/search', $data);
+        $response->assertSuccessful();
+        $response->assertHeader('content-type', 'application/json');
+    }
 }

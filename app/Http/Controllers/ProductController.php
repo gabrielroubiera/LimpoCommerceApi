@@ -80,4 +80,9 @@ class ProductController extends Controller
 
         return response()->json($products);
     }
+
+    public function searchProducts(Request $request){
+        $products = Product::where('name', 'LIKE', "{$request->product_source}%")->get();
+        return response()->json($products);
+    }
 }

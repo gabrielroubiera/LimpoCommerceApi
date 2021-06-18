@@ -11,4 +11,6 @@ class BaseController extends Controller
         $products = $table::where('status_id', '=' , 1)->whereNull('deleted_at')->get();
         return response()->json($products);
     }
+
+
 }
