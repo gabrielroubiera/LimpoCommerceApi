@@ -36,6 +36,7 @@ class SalesRecordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'product_id' => 'required|string',
             'product' => 'required|string',
             'category' => 'required|string',
             'price' => 'required|string',
@@ -44,20 +45,20 @@ class SalesRecordController extends Controller
         ]);
 
         $SalesRecord = SalesRecord::insert(
-            array('product' => $request->product,
+            array(
+                'product' => $request->product,
                 'category' => $request->category,
                 'price' => $request->price,
                 'amount' => $request->amount,
                 'total_price' => $request->total_price,
-                'user_id' => Auth::user()->id,
-                'status_id' => 1
+                'user_id' => Auth::user()->id
             )
         );
 
-        $product = Product::where('id', '=', $request->products_id)->get();
+        $product = Product::where('id', '=', $request->product_id)->get();
 
         $amount = intval($product[0]->amount) - intval($request->amount);
-        Product::where('id', $request->products_id)
+        Product::where('id', $request->product_id)
             ->update(['amount' => $amount]);
 
         return response()->json($SalesRecord);
