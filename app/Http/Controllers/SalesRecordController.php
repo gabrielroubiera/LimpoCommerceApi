@@ -38,7 +38,7 @@ class SalesRecordController extends Controller
         $request->validate([
             'product_id' => 'required|string',
             'product' => 'required|string',
-            'category' => 'required|string',
+            'category' => '',
             'price' => 'required|string',
             'amount' => 'required|string',
             'total_price' => 'required|string'
@@ -47,7 +47,7 @@ class SalesRecordController extends Controller
         $SalesRecord = SalesRecord::insert(
             array(
                 'product' => $request->product,
-                'category' => $request->category,
+                'category' => 'Deafult',
                 'price' => $request->price,
                 'amount' => $request->amount,
                 'total_price' => $request->total_price,
