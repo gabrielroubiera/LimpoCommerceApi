@@ -36,12 +36,22 @@ class SalesRecordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'products_id' => 'required',
-            'amount' => 'required'
+            'product' => 'required|string',
+            'category' => 'required|string',
+            'price' => 'required|string',
+            'amount' => 'required|string',
+            'total_price' => 'required|string'
         ]);
 
         $SalesRecord = SalesRecord::insert(
-            array('products_id' => $request->products_id, 'user_id' => Auth::user()->id, 'status_id' => 1)
+            array('product' => $request->product,
+                'category' => $request->category,
+                'price' => $request->price,
+                'amount' => $request->amount,
+                'total_price' => $request->total_price,
+                'user_id' => Auth::user()->id,
+                'status_id' => 1
+            )
         );
 
         $product = Product::where('id', '=', $request->products_id)->get();

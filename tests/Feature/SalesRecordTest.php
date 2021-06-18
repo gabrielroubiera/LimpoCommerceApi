@@ -29,12 +29,17 @@ class SalesRecordTest extends TestCase
 
     public function test_store(){
         $data = [
-            'products_id' => '1',
-            'amount' => 1
+            'product' => 'Coca Cola',
+            'category' => 'Bebidas',
+            'price' => '$20.00',
+            'amount' => '2',
+            'total_price' => '$40.00'
         ];
+
         $response = $this->postJson('/api/sales/records', $data);
 
         $response->assertSuccessful();
         $response->assertHeader('content-type', 'application/json');
+        $this->assertDatabaseHas('sales_record', $data);
     }
 }
