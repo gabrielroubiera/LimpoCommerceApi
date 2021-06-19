@@ -20,11 +20,7 @@ class ProductController extends Controller
             ->whereNull('deleted_at')
             ->get();
 
-        $paginationDetails = [
-            'pages' => 2,
-            'limitPerPage' => 20
-        ];
-        return response()->json([$paginationDetails, $products]);
+        return response()->json($products);
     }
 
     /**
@@ -88,6 +84,7 @@ class ProductController extends Controller
     public function searchProducts(Request $request){
         $products = Product::where('name', 'LIKE', "{$request->product_source}%")
             ->where('status_id', '=' , 1)
+            ->where('amount', '!=', '0')
             ->whereNull('deleted_at')
             ->get();
         return response()->json($products);
